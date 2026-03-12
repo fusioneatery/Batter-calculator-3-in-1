@@ -45,6 +45,9 @@ body {
 .tab-item:nth-child(1) { --tab-accent: #d4631f; }
 .tab-item:nth-child(2) { --tab-accent: #2a8fc4; }
 .tab-item:nth-child(3) { --tab-accent: #9b2335; }
+.tab-item:nth-child(4) { --tab-accent: #5a8a3a; }
+.tab-item:nth-child(5) { --tab-accent: #b8860b; }
+.tab-item:nth-child(6) { --tab-accent: #7a5c9e; }
 .tab-item.active .tab-label { color: var(--tab-accent); }
 .tab-item.active .tab-icon  { transform: translateY(-1px); }
 .tab-indicator { position: absolute; top: 0; left: 20%; right: 20%; height: 2px; border-radius: 0 0 2px 2px; background: var(--tab-accent); opacity: 0; transition: opacity 0.15s; }
@@ -251,10 +254,16 @@ body {
 #tab-pc          { --accent:#d4631f; --bg:#1a1208; --surface:#231a0e; --card:#2c2015; --ink:#f0e8d8; --muted:#8a7a64; --border:#3a2d1e; background:var(--bg); }
 #tab-fish-pc     { --accent:#2a8fc4; --bg:#0d1a24; --surface:#0f2030; --card:#142535; --ink:#e8f4f8; --muted:#5a7a8a; --border:#1e3448; background:var(--bg); }
 #tab-fish-scratch{ --accent:#9b2335; --bg:#1a0a0d; --surface:#220d10; --card:#2d1015; --ink:#f5e8ea; --muted:#7a5560; --border:#3d1820; background:var(--bg); }
+#tab-lamb        { --accent:#5a8a3a; --bg:#0e1a0a; --surface:#122010; --card:#1a2e14; --ink:#e8f5e0; --muted:#607a50; --border:#253d1a; background:var(--bg); }
+#tab-chicken     { --accent:#b8860b; --bg:#1a1500; --surface:#221c00; --card:#2d2500; --ink:#f5f0d8; --muted:#7a6e40; --border:#3d3400; background:var(--bg); }
+#tab-garlic      { --accent:#7a5c9e; --bg:#120d1a; --surface:#1a1224; --card:#221830; --ink:#f0eaf8; --muted:#6a5880; --border:#2e2040; background:var(--bg); }
 
 #tab-pc .flash          { animation: flash 0.32s ease; background:rgba(212,99,31,0.15); }
 #tab-fish-pc .flash     { animation: flash 0.32s ease; background:rgba(42,143,196,0.15); }
 #tab-fish-scratch .flash{ animation: flash 0.32s ease; background:rgba(155,35,53,0.15); }
+#tab-lamb .flash        { animation: flash 0.32s ease; background:rgba(90,138,58,0.15); }
+#tab-chicken .flash     { animation: flash 0.32s ease; background:rgba(184,134,11,0.15); }
+#tab-garlic .flash      { animation: flash 0.32s ease; background:rgba(122,92,158,0.15); }
 
 /* scrollbars */
 .ingredients::-webkit-scrollbar, .edit-body::-webkit-scrollbar { width: 3px; }
@@ -323,7 +332,7 @@ body {
         <div class="sec-mini">Batter + container total weight</div>
         <div class="weight-input-row">
           <div class="weight-input-wrap">
-            <input class="weight-input" type="number" id="fp-weight" placeholder="0" min="0" step="100" oninput="fpWeightInput(this.value)">
+            <input class="weight-input" type="number" id="fp-weight" placeholder="0" min="0" step="100" inputmode="numeric" enterkeyhint="done" oninput="fpWeightInput(this.value)" onkeydown="if(event.key==='Enter'){this.blur();event.preventDefault();}">
             <span class="weight-unit-ov">g</span>
           </div>
         </div>
@@ -403,6 +412,115 @@ body {
     </div>
   </div>
 
+
+  <!-- ══ TAB 4: LAMB MARINADE ══ -->
+  <div class="tab-panel" id="tab-lamb">
+    <div id="lm-main" style="display:flex;flex-direction:column;height:100%;overflow:hidden">
+      <div class="topbar">
+        <div><h1>Lamb <em>Marinade</em></h1><div class="sub">Marinated lamb recipe scaler</div></div>
+        <div class="topbar-right">
+          <button class="edit-btn" onclick="openEdit('lm')">✎ Edit</button>
+        </div>
+      </div>
+      <div class="weight-section">
+        <div class="sec-mini">Lamb weight (grams)</div>
+        <div class="weight-input-row">
+          <div class="weight-input-wrap">
+            <input class="weight-input" type="number" id="lm-weight" placeholder="0" min="0" step="100" inputmode="numeric" enterkeyhint="done" oninput="lmWeightInput(this.value)" onkeydown="if(event.key==='Enter'){this.blur();event.preventDefault();}">
+            <span class="weight-unit-ov">g</span>
+          </div>
+        </div>
+      </div>
+      <div class="ingredients" id="lm-inglist"></div>
+      <div class="panel-footer">Base recipe for 4600 g of lamb · Enter weight to calculate</div>
+    </div>
+    <div class="edit-screen" id="lm-edit">
+      <div class="edit-topbar">
+        <button class="back-btn" onclick="closeEdit('lm')">← Back</button>
+        <div class="edit-topbar-title"><h2>Edit <em>Lamb</em> Recipe</h2><div class="sub">Per 4.6 kg of lamb</div></div>
+      </div>
+      <div class="edit-body" id="lm-editbody">
+        <div class="edit-note">Tap a name or value to edit. Use + to add ingredients, × to delete.</div>
+      </div>
+      <div class="edit-footer">
+        <button class="reset-btn-sm" onclick="resetRecipe('lm')">Reset Default</button>
+        <button class="save-btn-sm" onclick="saveRecipe('lm')">Save Recipe</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TAB 5: CHICKEN MARINADE ══ -->
+  <div class="tab-panel" id="tab-chicken">
+    <div id="ck-main" style="display:flex;flex-direction:column;height:100%;overflow:hidden">
+      <div class="topbar">
+        <div><h1>Chicken <em>Marinade</em></h1><div class="sub">Marinated chicken recipe scaler</div></div>
+        <div class="topbar-right">
+          <button class="edit-btn" onclick="openEdit('ck')">✎ Edit</button>
+        </div>
+      </div>
+      <div class="weight-section">
+        <div class="sec-mini">Chicken weight (grams)</div>
+        <div class="weight-input-row">
+          <div class="weight-input-wrap">
+            <input class="weight-input" type="number" id="ck-weight" placeholder="0" min="0" step="100" inputmode="numeric" enterkeyhint="done" oninput="ckWeightInput(this.value)" onkeydown="if(event.key==='Enter'){this.blur();event.preventDefault();}">
+            <span class="weight-unit-ov">g</span>
+          </div>
+        </div>
+      </div>
+      <div class="ingredients" id="ck-inglist"></div>
+      <div class="panel-footer">Base recipe for 4600 g of chicken · Enter weight to calculate</div>
+    </div>
+    <div class="edit-screen" id="ck-edit">
+      <div class="edit-topbar">
+        <button class="back-btn" onclick="closeEdit('ck')">← Back</button>
+        <div class="edit-topbar-title"><h2>Edit <em>Chicken</em> Recipe</h2><div class="sub">Per 4.6 kg of chicken</div></div>
+      </div>
+      <div class="edit-body" id="ck-editbody">
+        <div class="edit-note">Tap a name or value to edit. Use + to add ingredients, × to delete.</div>
+      </div>
+      <div class="edit-footer">
+        <button class="reset-btn-sm" onclick="resetRecipe('ck')">Reset Default</button>
+        <button class="save-btn-sm" onclick="saveRecipe('ck')">Save Recipe</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TAB 6: GARLIC SAUCE ══ -->
+  <div class="tab-panel" id="tab-garlic">
+    <div id="gs-main" style="display:flex;flex-direction:column;height:100%;overflow:hidden">
+      <div class="topbar">
+        <div><h1>Garlic <em>Sauce</em></h1><div class="sub">Yoghurt garlic sauce scaler</div></div>
+        <div class="topbar-right">
+          <button class="edit-btn" onclick="openEdit('gs')">✎ Edit</button>
+        </div>
+      </div>
+      <div class="weight-section">
+        <div class="sec-mini">Yoghurt weight (grams)</div>
+        <div class="weight-input-row">
+          <div class="weight-input-wrap">
+            <input class="weight-input" type="number" id="gs-weight" placeholder="0" min="0" step="100" inputmode="numeric" enterkeyhint="done" oninput="gsWeightInput(this.value)" onkeydown="if(event.key==='Enter'){this.blur();event.preventDefault();}">
+            <span class="weight-unit-ov">g</span>
+          </div>
+        </div>
+      </div>
+      <div class="ingredients" id="gs-inglist"></div>
+      <div class="panel-footer">Base recipe for 2514 g of yoghurt · Enter weight to calculate</div>
+    </div>
+    <div class="edit-screen" id="gs-edit">
+      <div class="edit-topbar">
+        <button class="back-btn" onclick="closeEdit('gs')">← Back</button>
+        <div class="edit-topbar-title"><h2>Edit <em>Garlic</em> Sauce</h2><div class="sub">Per 2514 g of yoghurt</div></div>
+      </div>
+      <div class="edit-body" id="gs-editbody">
+        <div class="edit-note">Tap a name or value to edit. Use + to add ingredients, × to delete.</div>
+      </div>
+      <div class="edit-footer">
+        <button class="reset-btn-sm" onclick="resetRecipe('gs')">Reset Default</button>
+        <button class="save-btn-sm" onclick="saveRecipe('gs')">Save Recipe</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- BOTTOM TAB BAR -->
@@ -421,6 +539,21 @@ body {
     <div class="tab-indicator"></div>
     <div class="tab-icon">🍟</div>
     <div class="tab-label">Fish<br>Scratch</div>
+  </button>
+  <button class="tab-item" id="ti-lamb" onclick="switchTab('lamb')">
+    <div class="tab-indicator"></div>
+    <div class="tab-icon">🥩</div>
+    <div class="tab-label">Lamb<br>Marinade</div>
+  </button>
+  <button class="tab-item" id="ti-chicken" onclick="switchTab('chicken')">
+    <div class="tab-indicator"></div>
+    <div class="tab-icon">🍗</div>
+    <div class="tab-label">Chicken<br>Marinade</div>
+  </button>
+  <button class="tab-item" id="ti-garlic" onclick="switchTab('garlic')">
+    <div class="tab-indicator"></div>
+    <div class="tab-icon">🧄</div>
+    <div class="tab-label">Garlic<br>Sauce</div>
   </button>
 </div>
 
@@ -474,22 +607,58 @@ const FS_DEFAULTS = [
   { key:'biscuit',     name:'Biscuit Flour',    val:487.3,unit:'g',  locked:false },
 ];
 
+const LM_DEFAULTS = [
+  { key:'lamb',       name:'Lamb',             val:4600, unit:'g',  locked:true  },
+  { key:'salt',       name:'Salt',             val:50,   unit:'g',  locked:false },
+  { key:'sugar',      name:'Sugar',            val:40,   unit:'g',  locked:false },
+  { key:'bbq',        name:'BBQ Provincial',   val:50,   unit:'g',  locked:false },
+  { key:'oregano',    name:'Oregano',          val:10,   unit:'g',  locked:false },
+  { key:'pepper',     name:'Black Pepper',     val:4,    unit:'g',  locked:false },
+  { key:'wine',       name:'Red Wine',         val:60,   unit:'g',  locked:false },
+  { key:'kiwi',       name:'Kiwi Fruit',       val:2,    unit:'pcs',locked:false },
+];
+
+const CK_DEFAULTS = [
+  { key:'chicken',    name:'Chicken',          val:4600, unit:'g',  locked:true  },
+  { key:'salt',       name:'Salt',             val:45,   unit:'g',  locked:false },
+  { key:'sugar',      name:'Sugar',            val:36,   unit:'g',  locked:false },
+  { key:'bbq',        name:'BBQ Provincial',   val:45,   unit:'g',  locked:false },
+  { key:'oregano',    name:'Oregano',          val:9,    unit:'g',  locked:false },
+  { key:'pepper',     name:'Black Pepper',     val:3.6,  unit:'g',  locked:false },
+  { key:'wine',       name:'White Wine',       val:54,   unit:'g',  locked:false },
+];
+
+const GS_DEFAULTS = [
+  { key:'yoghurt',    name:'Yoghurt',          val:2514, unit:'g',  locked:true  },
+  { key:'garlic',     name:'Garlic',           val:2,    unit:'bulbs', locked:false },
+  { key:'oregano',    name:'Oregano',          val:4,    unit:'g',  locked:false },
+  { key:'pepper',     name:'Black Pepper',     val:1,    unit:'g',  locked:false },
+  { key:'salt',       name:'Salt',             val:30,   unit:'g',  locked:false },
+  { key:'oliveoil',   name:'Olive Oil',        val:10,   unit:'g',  locked:false },
+];
+
 // Deep-clone working copies
 let pcRecipe = deepClone(PC_DEFAULTS);
 let fpRecipe = deepClone(FP_DEFAULTS);
 let fsRecipe = deepClone(FS_DEFAULTS);
+let lmRecipe = deepClone(LM_DEFAULTS);
+let ckRecipe = deepClone(CK_DEFAULTS);
+let gsRecipe = deepClone(GS_DEFAULTS);
 
 // Draft copies for edit screen (changes only apply on Save)
 let pcDraft = null;
 let fpDraft = null;
 let fsDraft = null;
+let lmDraft = null;
+let ckDraft = null;
+let gsDraft = null;
 
 function deepClone(arr) { return arr.map(o => ({...o})); }
 
-function getRecipe(tab) { return tab==='pc' ? pcRecipe : tab==='fp' ? fpRecipe : fsRecipe; }
-function getDraft(tab)  { return tab==='pc' ? pcDraft  : tab==='fp' ? fpDraft  : fsDraft; }
-function setDraft(tab, d) { if(tab==='pc') pcDraft=d; else if(tab==='fp') fpDraft=d; else fsDraft=d; }
-function setRecipe(tab, r){ if(tab==='pc') pcRecipe=r; else if(tab==='fp') fpRecipe=r; else fsRecipe=r; }
+function getRecipe(tab) { return tab==='pc'?pcRecipe:tab==='fp'?fpRecipe:tab==='fs'?fsRecipe:tab==='lm'?lmRecipe:tab==='ck'?ckRecipe:gsRecipe; }
+function getDraft(tab)  { return tab==='pc'?pcDraft :tab==='fp'?fpDraft :tab==='fs'?fsDraft :tab==='lm'?lmDraft:tab==='ck'?ckDraft:gsDraft; }
+function setDraft(tab,d){ if(tab==='pc')pcDraft=d; else if(tab==='fp')fpDraft=d; else if(tab==='fs')fsDraft=d; else if(tab==='lm')lmDraft=d; else if(tab==='ck')ckDraft=d; else gsDraft=d; }
+function setRecipe(tab,r){ if(tab==='pc')pcRecipe=r; else if(tab==='fp')fpRecipe=r; else if(tab==='fs')fsRecipe=r; else if(tab==='lm')lmRecipe=r; else if(tab==='ck')ckRecipe=r; else gsRecipe=r; }
 
 /* ════════════════════════════════════════
    HELPERS
@@ -530,12 +699,20 @@ function renderIngList(tab) {
 
   recipe.forEach(item => {
     const isWater = item.key === 'water';
-    const amt = tab === 'fp' ? '—' : rnd(item.val * (tab==='pc'?pcL:fsL));
-    const zeroClass = tab === 'fp' ? ' zero' : '';
-    html += `<div class="ing-row${isWater?' water-ing':''}" id="${tab}-row-${item.key}">
+    const isLamb  = item.key === 'lamb' || item.key === 'chicken' || item.key === 'yoghurt';
+    let amt, zeroClass='';
+    if (tab === 'fp') {
+      amt = '—'; zeroClass = ' zero';
+    } else if (tab === 'lm' || tab === 'ck' || tab === 'gs') {
+      amt = '—'; zeroClass = ' zero'; // will be updated by lmUpdate/ckUpdate/gsUpdate()
+    } else {
+      let scale = tab==='pc'?pcL : fsL;
+      amt = rnd(item.val * scale);
+    }
+    html += `<div class="ing-row${isWater||isLamb?' water-ing':''}" id="${tab}-row-${item.key}">
       <div class="ing-dot"></div>
       <div class="ing-name">${item.name}</div>
-      <div class="ing-amount${zeroClass}" id="${tab}-amt-${item.key}">${tab==='fp'?'—':amt}</div>
+      <div class="ing-amount${zeroClass}" id="${tab}-amt-${item.key}">${amt}</div>
       <div class="ing-unit">${item.unit}</div>
     </div>`;
   });
@@ -565,7 +742,9 @@ function renderEditBody(tab) {
       <select class="edit-ing-unit-sel" onchange="draftSetUnit('${tab}',${idx},this.value)" ${isLocked?'disabled':''}>
         <option value="g"  ${item.unit==='g' ?'selected':''}>g</option>
         <option value="ml" ${item.unit==='ml'?'selected':''}>ml</option>
-        <option value="kg" ${item.unit==='kg'?'selected':''}>kg</option>
+        <option value="kg"  ${item.unit==='kg' ?'selected':''}>kg</option>
+        <option value="pcs"${item.unit==='pcs'?'selected':''}>pcs</option>
+        <option value="bulbs"${item.unit==='bulbs'?'selected':''}>bulbs</option>
       </select>
       ${isLocked
         ? `<div style="width:28px;flex-shrink:0"></div>`
@@ -584,6 +763,8 @@ function renderEditBody(tab) {
         <option value="g">g</option>
         <option value="ml">ml</option>
         <option value="kg">kg</option>
+        <option value="pcs">pcs</option>
+        <option value="bulbs">bulbs</option>
       </select>
       <button class="add-confirm-btn" onclick="addIngredient('${tab}')" title="Add">+</button>
     </div>
@@ -631,9 +812,12 @@ function askDelete(tab, idx) {
   document.getElementById('confirmMsg').textContent   = `This will remove "${item.name}" from the recipe. You can add it back later.`;
   // Match sheet color to tab
   const sheet = document.querySelector('.confirm-sheet');
-  if(tab==='pc')           { sheet.style.cssText='--card:#2c2015;--border:#3a2d1e;--muted:#8a7a64;background:#2c2015'; }
-  else if(tab==='fp')      { sheet.style.cssText='--card:#142535;--border:#1e3448;--muted:#5a7a8a;background:#142535'; }
-  else                     { sheet.style.cssText='--card:#2d1015;--border:#3d1820;--muted:#7a5560;background:#2d1015'; }
+  if(tab==='pc')      { sheet.style.cssText='--card:#2c2015;--border:#3a2d1e;--muted:#8a7a64;background:#2c2015'; }
+  else if(tab==='fp') { sheet.style.cssText='--card:#142535;--border:#1e3448;--muted:#5a7a8a;background:#142535'; }
+  else if(tab==='fs') { sheet.style.cssText='--card:#2d1015;--border:#3d1820;--muted:#7a5560;background:#2d1015'; }
+  else if(tab==='lm') { sheet.style.cssText='--card:#1a2e14;--border:#253d1a;--muted:#607a50;background:#1a2e14'; }
+  else if(tab==='ck') { sheet.style.cssText='--card:#2d2500;--border:#3d3400;--muted:#7a6e40;background:#2d2500'; }
+  else                { sheet.style.cssText='--card:#221830;--border:#2e2040;--muted:#6a5880;background:#221830'; }
   document.getElementById('confirmOverlay').classList.add('open');
 }
 function confirmCancel() { pendingDelete=null; document.getElementById('confirmOverlay').classList.remove('open'); }
@@ -665,12 +849,15 @@ function saveRecipe(tab) {
   renderIngList(tab);
   if (tab==='pc') pcUpdate();
   else if (tab==='fp') fpUpdate();
-  else fsUpdate();
+  else if (tab==='fs') fsUpdate();
+  else if (tab==='lm') lmUpdate();
+  else if (tab==='ck') ckUpdate();
+  else gsUpdate();
   closeEdit(tab);
   showToast('Recipe Saved ✓');
 }
 function resetRecipe(tab) {
-  const defaults = tab==='pc'?PC_DEFAULTS:tab==='fp'?FP_DEFAULTS:FS_DEFAULTS;
+  const defaults = tab==='pc'?PC_DEFAULTS:tab==='fp'?FP_DEFAULTS:tab==='fs'?FS_DEFAULTS:tab==='lm'?LM_DEFAULTS:tab==='ck'?CK_DEFAULTS:GS_DEFAULTS;
   setDraft(tab, deepClone(defaults));
   renderEditBody(tab);
   showToast('Reset to Default');
@@ -810,14 +997,95 @@ function fsCustom(v){
 }
 
 /* ════════════════════════════════════════
+   TAB 4 — LAMB MARINADE
+════════════════════════════════════════ */
+let lmKg = 0; // actual lamb weight in kg
+
+function lmUpdate() {
+  lmRecipe.forEach(item => {
+    const mult = lmKg / 4.6;
+    const val = lmKg > 0 ? rnd(item.val * mult) : null;
+    const el  = document.getElementById('lm-amt-'+item.key);
+    if (!el) return;
+    const txt = val !== null ? String(val) : '—';
+    if (el.textContent !== txt) {
+      el.textContent = txt;
+      el.classList.toggle('zero', val === null);
+      if (val !== null) animAmt(el, el.closest('.ing-row'));
+    }
+  });
+}
+function lmWeightInput(v) {
+  const n = parseFloat(v);
+  lmKg = (!isNaN(n) && n > 0) ? n / 1000 : 0;
+  lmUpdate();
+}
+
+/* ════════════════════════════════════════
+   TAB 5 — CHICKEN MARINADE
+════════════════════════════════════════ */
+let ckKg = 0;
+
+function ckUpdate() {
+  ckRecipe.forEach(item => {
+    const mult = ckKg / 4.6;
+    const val = ckKg > 0 ? rnd(item.val * mult) : null;
+    const el  = document.getElementById('ck-amt-'+item.key);
+    if (!el) return;
+    const txt = val !== null ? String(val) : '—';
+    if (el.textContent !== txt) {
+      el.textContent = txt;
+      el.classList.toggle('zero', val === null);
+      if (val !== null) animAmt(el, el.closest('.ing-row'));
+    }
+  });
+}
+function ckWeightInput(v) {
+  const n = parseFloat(v);
+  ckKg = (!isNaN(n) && n > 0) ? n / 1000 : 0;
+  ckUpdate();
+}
+
+/* ════════════════════════════════════════
+   TAB 6 — GARLIC SAUCE
+════════════════════════════════════════ */
+let gsKg = 0;
+
+function gsUpdate() {
+  gsRecipe.forEach(item => {
+    const mult = gsKg / 2.514;
+    const val = gsKg > 0 ? rnd(item.val * mult) : null;
+    const el  = document.getElementById('gs-amt-'+item.key);
+    if (!el) return;
+    const txt = val !== null ? String(val) : '—';
+    if (el.textContent !== txt) {
+      el.textContent = txt;
+      el.classList.toggle('zero', val === null);
+      if (val !== null) animAmt(el, el.closest('.ing-row'));
+    }
+  });
+}
+function gsWeightInput(v) {
+  const n = parseFloat(v);
+  gsKg = (!isNaN(n) && n > 0) ? n / 1000 : 0;
+  gsUpdate();
+}
+
+/* ════════════════════════════════════════
    INIT
 ════════════════════════════════════════ */
 renderIngList('pc');
 renderIngList('fp');
 renderIngList('fs');
+renderIngList('lm');
+renderIngList('ck');
+renderIngList('gs');
 pcUpdate();
 fpUpdate();
 fsUpdate();
+lmUpdate();
+ckUpdate();
+gsUpdate();
 </script>
 </body>
 </html>
